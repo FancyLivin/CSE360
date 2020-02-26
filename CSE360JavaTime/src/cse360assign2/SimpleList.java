@@ -22,19 +22,22 @@ public class SimpleList {
 	//Every time a value is added all other values will shift over one space to the right
 	//If more than 10 values are in the array, the last value will be removed from the array
 	public void add(int item) {
-		//A check to make sure there is no out of bounds exception
-		if (count == 10) {
-			count--;
+		//Will increase list size by 50% if overflow occurs
+		if (count == list.length) {
+			int oldCount = count - 1;
+			int[] newList = new int[count + count/2];
+			
+			for (int loop2 = 0; loop2 <= oldCount; loop2++) {
+				newList[loop2] = list[loop2];
+			}
+			list = newList;
 		}
 		//For loop that moves up each value 1 index up
 		for (int loop1 = count; loop1 > 0; loop1--) {
 			list[loop1] = list[loop1 - 1];
 		}
 		list[0] = item;
-		//Ensures only 10 values can be in the array at max
-		if (count != 10) {
-			count++;
-		}
+		count++;
 	}
 
 	//This method will remove a specified value from the list
@@ -43,6 +46,16 @@ public class SimpleList {
 		//Ensures there is no out of bounds exceptions
 		if (count == -1) {
 			count++;
+		}
+		//Shrinks list if there are more than 25% empty values in the list
+		if (count < list.length - list.length/4) {
+			int oldCount = count - 1;
+			int [] newList = new int[list.length - list.length/4];
+			
+			for (int loop2 = 0; loop2 <= oldCount; loop2++) {
+				newList[loop2] = list[loop2];
+			}
+			list = newList;
 		}
 		//For loop that removes specified value if it exists in the array
 		//Once removed, inner for loop will move values to the right 
@@ -83,7 +96,7 @@ public class SimpleList {
 
 	//Searches for the specified value's index in the array and returns that value
 	public int search(int look) {
-		int correctIndex = 10;
+		int correctIndex = count;
 		int searchCount = 0;
 		//Goes through the entire loop to see if the value is in the array
 		for (int loop1 = 0; loop1 < correctIndex; loop1++) {

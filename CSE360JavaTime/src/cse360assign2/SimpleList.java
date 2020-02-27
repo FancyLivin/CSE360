@@ -209,6 +209,21 @@ public class SimpleList
 	}
 	
 	/**
+	 * Returns the last value in the list that was put in with user input
+	 * 
+	 * @return list[count - 1]  last inputed value at the end of list
+	 * @return -1  returned if no values are inputed into list
+	 */
+	public int last()
+	{
+		if (count == 0)
+		{
+			return -1;
+		}
+		return list[count - 1];
+	}
+	
+	/**
 	 * Function will add inputed value to the end of the list
 	 * 
 	 * @param item  value that will be added
